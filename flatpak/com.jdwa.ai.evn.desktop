@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=JDWA 记得晚安
+Comment=All-in-One Assistant for Claude Code, ChatGPT & Gemini CLI
+Exec=jdwa-ai-evn
+Icon=com.jdwa.ai.evn
+Terminal=false
+Categories=Utility;Development;
+StartupNotify=true

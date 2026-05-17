@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- 注册 jdwa:// 自定义 URL 协议，并兼容旧 ccswitch:// 导入链接 -->
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>JDWA Deep Link</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>jdwa</string>
+        <string>ccswitch</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>

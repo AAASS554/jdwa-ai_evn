@@ -703,10 +703,10 @@ pub fn handle_tray_menu_event(app: &tauri::AppHandle, event_id: &str) {
             }
         }
         "open_website" => {
-            if let Err(e) = app.opener().open_url(
-                "https://github.com/AAASS554/jdwa-ai_evn",
-                None::<String>,
-            ) {
+            if let Err(e) = app
+                .opener()
+                .open_url("https://github.com/AAASS554/jdwa-ai_evn", None::<String>)
+            {
                 log::error!("打开 JDWA 仓库失败: {e}");
             }
         }

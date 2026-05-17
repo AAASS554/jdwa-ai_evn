@@ -88,10 +88,9 @@ mod tests {
     #[cfg(target_os = "macos")]
     #[test]
     fn test_get_macos_app_bundle_path_with_spaces() {
-        let exe_path =
-            std::path::Path::new(
-                "/Users/test/My Apps/JDWA 记得晚安.app/Contents/MacOS/JDWA 记得晚安",
-            );
+        let exe_path = std::path::Path::new(
+            "/Users/test/My Apps/JDWA 记得晚安.app/Contents/MacOS/JDWA 记得晚安",
+        );
         let result = get_macos_app_bundle_path(exe_path);
         assert_eq!(
             result,

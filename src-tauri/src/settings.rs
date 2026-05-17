@@ -27,7 +27,7 @@ fn default_false() -> bool {
 }
 
 /// 主页面显示的应用配置
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VisibleApps {
     #[serde(default = "default_true")]
@@ -49,6 +49,50 @@ pub struct VisibleApps {
     pub openclaw: bool,
     #[serde(default = "default_true")]
     pub hermes: bool,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct VisibleAppsCompat {
+    #[serde(default = "default_true")]
+    claude: bool,
+    #[serde(
+        rename = "claude-desktop",
+        alias = "claudeDesktop",
+        alias = "claude_desktop"
+    )]
+    claude_desktop: Option<bool>,
+    #[serde(default = "default_true")]
+    codex: bool,
+    #[serde(default = "default_true")]
+    gemini: bool,
+    #[serde(default = "default_false")]
+    opencode: bool,
+    #[serde(default = "default_true")]
+    openclaw: bool,
+    #[serde(default = "default_true")]
+    hermes: bool,
+}
+
+impl<'de> Deserialize<'de> for VisibleApps {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let compat = VisibleAppsCompat::deserialize(deserializer)?;
+
+        Ok(Self {
+            claude: compat.claude,
+            // Older settings only had a single `claude` flag. Preserve that behavior
+            // unless a dedicated Claude Desktop toggle is explicitly stored.
+            claude_desktop: compat.claude_desktop.unwrap_or(compat.claude),
+            codex: compat.codex,
+            gemini: compat.gemini,
+            opencode: compat.opencode,
+            openclaw: compat.openclaw,
+            hermes: compat.hermes,
+        })
+    }
 }
 
 impl Default for VisibleApps {

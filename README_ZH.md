@@ -27,8 +27,6 @@ JDWA 默认使用 `~/.jdwa` 作为本地配置目录：
 - `~/.jdwa/backups/`：数据库备份
 - `~/.jdwa/skills/`：JDWA 管理的 Skills 主副本
 
-首次运行 JDWA 版时，如果检测到旧版 `~/.cc-switch/cc-switch.db`、`config.json`、`settings.json` 或 Skills/备份目录，会复制到 `~/.jdwa`，旧目录不会被删除。
-
 ## 开发
 
 ```bash

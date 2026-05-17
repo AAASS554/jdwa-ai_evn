@@ -25,8 +25,8 @@ pub const LEGACY_APP_DB_FILE_NAME: &str = "cc-switch.db";
 /// 为了让 Windows CI/本地测试能稳定隔离真实用户数据，可通过 `JDWA_TEST_HOME`
 /// 显式覆盖 home dir（仅用于测试/调试场景）。旧的 `CC_SWITCH_TEST_HOME` 继续兼容。
 pub fn get_home_dir() -> PathBuf {
-    if let Ok(home) = std::env::var("JDWA_TEST_HOME")
-        .or_else(|_| std::env::var("CC_SWITCH_TEST_HOME"))
+    if let Ok(home) =
+        std::env::var("JDWA_TEST_HOME").or_else(|_| std::env::var("CC_SWITCH_TEST_HOME"))
     {
         let trimmed = home.trim();
         if !trimmed.is_empty() {
@@ -121,7 +121,9 @@ fn copy_dir_contents_if_missing(source: &Path, target: &Path) -> Result<bool, Ap
         let entry = entry.map_err(|e| AppError::io(source, e))?;
         let source_path = entry.path();
         let target_path = target.join(entry.file_name());
-        let file_type = entry.file_type().map_err(|e| AppError::io(&source_path, e))?;
+        let file_type = entry
+            .file_type()
+            .map_err(|e| AppError::io(&source_path, e))?;
         if file_type.is_dir() {
             let _ = copy_dir_contents_if_missing(&source_path, &target_path)?;
         } else if file_type.is_file() {
@@ -152,7 +154,10 @@ pub fn migrate_legacy_cc_switch_data() -> Result<bool, AppError> {
         &legacy_dir.join(LEGACY_APP_DB_FILE_NAME),
         &target_dir.join(APP_DB_FILE_NAME),
     )?;
-    migrated |= copy_file_if_missing(&legacy_dir.join("config.json"), &target_dir.join("config.json"))?;
+    migrated |= copy_file_if_missing(
+        &legacy_dir.join("config.json"),
+        &target_dir.join("config.json"),
+    )?;
     migrated |= copy_file_if_missing(
         &legacy_dir.join("settings.json"),
         &target_dir.join("settings.json"),
@@ -179,9 +184,7 @@ pub fn get_app_config_dir() -> PathBuf {
         return custom;
     }
 
-    let default_dir = get_home_dir().join(APP_CONFIG_DIR_NAME);
-
-    default_dir
+    get_home_dir().join(APP_CONFIG_DIR_NAME)
 }
 
 /// 获取应用配置文件路径

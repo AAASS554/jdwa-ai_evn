@@ -138,7 +138,7 @@ jobs:
             exit 1
           fi
 
-          printf '%s\n' "$KEY_CONTENT" > "$KEY_PATH"
+          printf '%s' "$KEY_CONTENT" > "$KEY_PATH"
           # Tauri CLI accepts either the private key content or a private key file path.
           # Passing a temp file path avoids multiline environment variable edge cases.
           echo "TAURI_SIGNING_PRIVATE_KEY=$KEY_PATH" >> "$GITHUB_ENV"
